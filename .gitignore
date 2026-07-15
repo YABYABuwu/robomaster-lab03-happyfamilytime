@@ -1,0 +1,26 @@
+# Python Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# Data directories (ignore CSV files with raw sensor logs to avoid bloating Git)
+data/raw/**/*.csv
+data/processed/**/*.csv
+data/processed/**/*.pkl
+
+# Analysis plots
+analysis/plots/*.png
+analysis/plots/*.pdf
+
+# IDE settings
+.vscode/
+.idea/
