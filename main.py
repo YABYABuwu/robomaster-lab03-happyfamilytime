@@ -1,9 +1,11 @@
 from src.chassis import ChassisController as Chassis
+from src.logger import Logger 
 import time
 import robomaster
 from robomaster import robot
 import csv
 import os
+
 
 
 
@@ -17,10 +19,13 @@ def main():
         print("[Main] Connected! SN:", ep_robot.get_sn())
 
         chassis = Chassis(ep_robot)
+        logger = Logger(ep_robot)
 
         v = 0.7
         degree = 91
+        f = 10
         
+        logger.start_all(f, f, f, f)
         chassis.move_forward(0.6, v)
         time.sleep(2)
         chassis.move_turnRight(degree, 1)
@@ -39,6 +44,8 @@ def main():
         chassis.move_forward(0.6, v)
         time.sleep(2)
         chassis.move_turnRight(degree, 1)
+
+        logger.stop_all()
 
         ep_robot.close()
 
@@ -58,7 +65,7 @@ def main():
         except:
             pass
         
-        ep_robot.uninitialize()
+        
         print("[Main] Disconnected cleanly.")
 
 
