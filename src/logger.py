@@ -1,3 +1,4 @@
+import os, csv, time
 class Logger:
     def __init__(self, ep_robot, base_data_dir="data/raw"):
         """
@@ -28,7 +29,7 @@ class Logger:
     def sub_attitude_info_handler(self, sub_info):
     # print("sub info: {0}".format(sub_info))
     # print(type(sub_info))
-        log_dir = self.run_dir + 'log_attitude.csv'
+        log_dir = self.run_dir + '/log_attitude.csv'
         if not os.path.exists(log_dir):
             with open(log_dir , mode='w', newline='') as file:
               writer = csv.writer(file)
@@ -40,7 +41,7 @@ class Logger:
     def sub_position_info_handler(self, sub_info):
         # print("sub info: {0}".format(sub_info))
         # print(type(sub_info))
-        log_dir = self.run_dir + 'log_position.csv'
+        log_dir = self.run_dir + '/log_position.csv'
         if not os.path.exists(log_dir):
             with open(log_dir, mode='w', newline='') as file:
                 writer = csv.writer(file)
@@ -52,7 +53,7 @@ class Logger:
     def sub_imu_info_handler(self, sub_info):
         # print("sub info: {0}".format(sub_info))
         # print(type(sub_info))
-        log_dir = self.run_dir + 'log_imu.csv'
+        log_dir = self.run_dir + '/log_imu.csv'
         if not os.path.exists(log_dir):
             with open(log_dir, mode='w', newline='') as file:
                 writer = csv.writer(file)
@@ -64,7 +65,7 @@ class Logger:
     def sub_esc_info_handler(self, sub_info):
         # print("sub info: {0}".format(sub_info))
         # print(type(sub_info))
-        log_dir = self.run_dir + 'log_esc.csv'
+        log_dir = self.run_dir + '/log_esc.csv'
         if not os.path.exists(log_dir):
             with open(log_dir, mode='w', newline='') as file:
                 writer = csv.writer(file)
@@ -77,7 +78,7 @@ class Logger:
         self.chassis.sub_attitude(freq=feq, callback= self.sub_attitude_info_handler)
 
     def start_position_log(self, feq=5):
-        self.chassis.sub_positin(freq=feq, callback= self.sub_position_info_handler)
+        self.chassis.sub_position(freq=feq, callback= self.sub_position_info_handler)
 
     def start_imu_log(self, feq=5):
         self.chassis.sub_imu(freq=feq, callback= self.sub_imu_info_handler)
@@ -87,7 +88,7 @@ class Logger:
 
     def start_all(self, feq_att=5, feq_pos=5, feq_imu=5, feq_esc=5):
         self.chassis.sub_attitude(freq=feq_att, callback= self.sub_attitude_info_handler)
-        self.chassis.sub_positin(freq=feq_pos, callback= self.sub_position_info_handler)
+        self.chassis.sub_position(freq=feq_pos, callback= self.sub_position_info_handler)
         self.chassis.sub_imu(freq=feq_imu, callback= self.sub_imu_info_handler)
         self.chassis.sub_esc(freq=feq_esc, callback= self.sub_esc_info_handler)
 
@@ -95,7 +96,7 @@ class Logger:
         self.chassis.unsub_attitude()
 
     def stop_position_log(self):
-        self.chassis.unsub_positin()
+        self.chassis.unsub_position()
 
     def stop_imu_log(self):
         self.chassis.unsub_imu()
@@ -105,7 +106,7 @@ class Logger:
 
     def stop_all(self):
         self.chassis.unsub_attitude()
-        self.chassis.unsub_positin()
+        self.chassis.unsub_position()
         self.chassis.unsub_imu()
         self.chassis.unsub_esc()
         
